@@ -1,0 +1,20 @@
+USE lot_tracker;
+
+CREATE TABLE lots (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lot_number VARCHAR(100) NOT NULL UNIQUE,
+    supplier VARCHAR(150) NOT NULL,
+    material_type VARCHAR(150) NOT NULL,
+    weight DECIMAL(12,2) NOT NULL,
+    status ENUM(
+        'RECEIVED',
+        'PROCESSING',
+        'COMPLETED',
+        'REJECTED'
+    ) NOT NULL DEFAULT 'RECEIVED',
+    received_date DATE NOT NULL,
+    version INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP
+);

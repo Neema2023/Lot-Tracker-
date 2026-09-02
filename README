@@ -1,0 +1,453 @@
+# Lot Tracker
+
+A full-stack material lot management system built for the Full-Stack Developer Coding Assessment.
+
+The application allows authorized users to manage material lots, track status changes, view audit history, and safely handle concurrent updates.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+* React.js
+* Vite
+* React Router
+* Axios
+* Lucide React
+
+### Backend
+
+* Node.js
+* Express.js
+* MySQL
+* JWT
+* bcryptjs
+* Jest
+* express-rate-limit
+
+---
+
+## Features
+
+* JWT Authentication
+* Viewer and Editor roles
+* Lot CRUD operations
+* Search and status filtering
+* Server-side pagination
+* Controlled status workflow
+* Immutable audit trail
+* Optimistic concurrency control
+* 409 Conflict handling
+* Database transactions
+* MySQL indexes
+* Write rate limiting
+* 100,000+ seeded lots
+* Automated tests
+* Responsive React interface
+
+---
+
+## Project Structure
+
+```text
+lot-tracker/
+│
+├── backend/
+│   ├── src/
+│   │   ├── config/
+│   │   ├── controllers/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   └── server.js
+│   │
+│   ├── database/
+│   │   └── migrations/
+│   │
+│   ├── seed/
+│   │   └── seedLots.js
+│   │
+│   └── package.json
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   │
+│   └── package.json
+│
+├── .gitignore
+└── README.md
+```
+
+---
+
+## Status Workflow
+
+Lots follow a controlled lifecycle:
+
+```text
+RECEIVED
+   ├── PROCESSING
+   │      ├── COMPLETED
+   │      └── REJECTED
+   │
+   └── REJECTED
+```
+
+Allowed transitions:
+
+* RECEIVED → PROCESSING
+* RECEIVED → REJECTED
+* PROCESSING → COMPLETED
+* PROCESSING → REJECTED
+
+Invalid transitions are rejected by the backend.
+
+---
+
+## Roles
+
+### Editor
+
+Editors can:
+
+* View lots
+* Create lots
+* Edit lots
+* Change status
+* Delete lots
+* View audit history
+
+### Viewer
+
+Viewers can:
+
+* View lots
+* Search and filter
+* Use pagination
+* View lot details
+* View audit history
+
+Viewers cannot perform write operations.
+
+Authorization is enforced by the backend.
+
+---
+
+## Audit Trail
+
+Every successful status change creates an audit record containing:
+
+* Lot
+* User
+* Previous status
+* New status
+* Timestamp
+
+Status changes and audit records are saved in the same database transaction to maintain consistency.
+
+---
+
+## Optimistic Concurrency
+
+Each lot has a `version` number.
+
+Example:
+
+```text
+Current version: 3
+
+User A updates → version 4
+
+User B tries to update using version 3
+                    ↓
+               409 Conflict
+```
+
+The frontend provides a conflict-resolution flow so that stale changes do not silently overwrite newer data.
+
+---
+
+## Database
+
+Database:
+
+```text
+lot_tracker
+```
+
+Main tables:
+
+```text
+users
+lots
+lot_status_history
+```
+
+Database migrations are located in:
+
+```text
+backend/database/migrations/
+```
+
+The project includes database indexes for commonly used queries and was tested with more than **100,000 lots**.
+
+---
+
+## Seed Data
+
+Seed script:
+
+```text
+backend/seed/seedLots.js
+```
+
+Run:
+
+```bash
+cd backend
+node seed/seedLots.js
+```
+
+The seed script generates **100,000 lots** with initial audit records.
+
+---
+
+## Installation
+
+### 1. Backend
+
+```bash
+cd backend
+npm install
+```
+
+Create:
+
+```text
+backend/.env
+```
+
+Example:
+
+```env
+PORT=5000
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=YOUR_DATABASE_PASSWORD
+DB_NAME=lot_tracker
+
+JWT_SECRET=YOUR_SECRET_KEY
+```
+
+Run:
+
+```bash
+npm run dev
+```
+
+Backend:
+
+```text
+http://localhost:5000
+```
+
+---
+
+### 2. Frontend
+
+Open another terminal:
+
+```bash
+cd frontend
+npm install
+```
+
+Create:
+
+```text
+frontend/.env
+```
+
+Add:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Run:
+
+```bash
+npm run dev
+```
+
+Frontend:
+
+```text
+http://localhost:5173
+```
+
+---
+
+## Test Credentials
+
+### Editor
+
+```text
+Email:    neema1@gmail.com
+Password: 123456
+Role:     EDITOR
+```
+
+### Viewer
+
+```text
+Email:    neema2@gmail.com
+Password: 123456
+Role:     VIEWER
+```
+
+---
+
+## Testing
+
+Backend automated tests use Jest.
+
+Run:
+
+```bash
+cd backend
+npm test
+```
+
+Current result:
+
+```text
+Test Suites: 1 passed, 1 total
+Tests:       10 passed, 10 total
+```
+
+Tests cover status transitions, validation, missing lots, and optimistic concurrency conflicts.
+
+---
+
+## API
+
+Base URL:
+
+```text
+http://localhost:5000/api
+```
+
+Main endpoints:
+
+```text
+POST   /auth/register
+POST   /auth/login
+
+GET    /lots
+GET    /lots/:id
+POST   /lots
+PUT    /lots/:id
+PATCH  /lots/:id/status
+DELETE /lots/:id
+
+GET    /lots/:id/track
+```
+
+Protected endpoints require:
+
+```text
+Authorization: Bearer <JWT_TOKEN>
+```
+
+---
+
+## Performance & Security
+
+The application includes:
+
+* Server-side pagination
+* Database indexes
+* MySQL `EXPLAIN` query analysis
+* 100,000+ test records
+* JWT authentication
+* bcrypt password hashing
+* Backend role authorization
+* Write rate limiting
+* Database transactions
+* Optimistic concurrency control
+
+---
+
+## Important
+
+Do not commit sensitive environment variables.
+
+```text
+.env
+```
+
+should remain in `.gitignore`.
+
+Use `.env.example` when sharing configuration.
+
+---
+
+## Application Flow
+
+```text
+Login
+  ↓
+Dashboard
+  ↓
+Lots
+  ↓
+Search / Filter / Pagination
+  ↓
+Create / Edit / Status Update
+  ↓
+Audit Trail
+```
+
+---
+
+## Assessment Coverage
+
+The project covers the major assessment requirements including:
+
+* Lot management
+* Authentication
+* Authorization
+* Status workflow
+* Audit trail
+* Optimistic concurrency
+* CRUD API
+* Search
+* Filtering
+* Pagination
+* Validation
+* Transactions
+* Rate limiting
+* Database indexes
+* 100,000+ seed data
+* Automated tests
+* React frontend
+* Role-based UI
+* Conflict resolution
+
+---
+
+## Author
+
+**Neema**
+
+Full-Stack Software Engineering Project
+
+Built for the Full-Stack Developer Coding Assessment.
