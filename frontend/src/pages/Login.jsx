@@ -10,6 +10,14 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// ============================================================
+// API URL - Uses environment variable or falls back to localhost
+// ============================================================
+
+const API_URL =
+    import.meta.env.VITE_API_URL ||
+    "http://localhost:5000/api";
+
 function Login() {
     const navigate = useNavigate();
 
@@ -62,7 +70,7 @@ function Login() {
             if (isRegister) {
 
                 const response = await axios.post(
-                    "http://localhost:5000/api/auth/register",
+                    `${API_URL}/auth/register`,
                     {
                         name: formData.name,
                         email: formData.email,
@@ -98,7 +106,7 @@ function Login() {
             // =========================
 
             const response = await axios.post(
-                "http://localhost:5000/api/auth/login",
+                `${API_URL}/auth/login`,
                 {
                     email: formData.email,
                     password: formData.password
