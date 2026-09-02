@@ -11,12 +11,10 @@ import {
 import { useNavigate } from "react-router-dom";
 
 // ============================================================
-// API URL - Uses environment variable or falls back to localhost
+// API URL - Hardcoded for production
 // ============================================================
 
-const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "http://localhost:5000/api";
+const API_URL = "https://lot-tracker-urg2.onrender.com/api";
 
 function Login() {
     const navigate = useNavigate();
