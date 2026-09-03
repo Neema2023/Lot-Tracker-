@@ -19,9 +19,11 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 
 
-const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "http://localhost:5000/api";
+
+// API URL - Hardcoded for production
+
+
+const API_URL = "https://lot-tracker-urg2.onrender.com/api";
 
 
 function Lots() {
@@ -29,11 +31,11 @@ function Lots() {
     const navigate = useNavigate();
 
 
-    /*
-    ========================================================
-    USER
-    ========================================================
-    */
+ 
+   
+   // USER
+    
+   
 
     const user = JSON.parse(
         localStorage.getItem("user") || "{}"
@@ -46,11 +48,11 @@ function Lots() {
         user.role === "EDITOR";
 
 
-    /*
-    ========================================================
-    STATE
-    ========================================================
-    */
+    
+   
+    //STATE
+    
+    
 
     const [lots, setLots] =
         useState([]);
@@ -82,11 +84,9 @@ function Lots() {
         });
 
 
-    /*
-    ========================================================
-    CREATE / EDIT MODAL
-    ========================================================
-    */
+    
+    //CREATE / EDIT MODAL
+    
 
     const [showModal, setShowModal] =
         useState(false);
@@ -98,11 +98,10 @@ function Lots() {
         useState(null);
 
 
-    /*
-    ========================================================
-    FORM
-    ========================================================
-    */
+    
+    //FORM
+   
+  
 
     const [formData, setFormData] =
         useState({
@@ -115,11 +114,9 @@ function Lots() {
         });
 
 
-    /*
-    ========================================================
-    DELETE MODAL
-    ========================================================
-    */
+   
+    //DELETE MODAL
+    
 
     const [showDeleteModal, setShowDeleteModal] =
         useState(false);
@@ -128,11 +125,9 @@ function Lots() {
         useState(null);
 
 
-    /*
-    ========================================================
-    STATUS MODAL
-    ========================================================
-    */
+   
+    //STATUS MODAL
+   
 
     const [showStatusModal, setShowStatusModal] =
         useState(false);
@@ -144,21 +139,16 @@ function Lots() {
         useState("");
 
 
-    /*
-    ========================================================
-    STATUS CONFIRMATION MODAL
-    ========================================================
-    */
-
+    
+    //STATUS CONFIRMATION MODAL
+    
     const [showStatusConfirmModal, setShowStatusConfirmModal] =
         useState(false);
 
 
-    /*
-    ========================================================
-    CONFLICT MODAL
-    ========================================================
-    */
+    
+    //CONFLICT MODAL
+    
 
     const [showConflictModal, setShowConflictModal] =
         useState(false);
@@ -182,11 +172,9 @@ function Lots() {
         useState(false);
 
 
-    /*
-    ========================================================
-    AXIOS CONFIG
-    ========================================================
-    */
+   
+    //AXIOS CONFIG
+    
 
     const getConfig = () => {
 
@@ -200,12 +188,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    GET LOTS
-    ========================================================
-    */
-
+   
+    //GET LOTS
+   
     const fetchLots = async () => {
 
         try {
@@ -295,12 +280,9 @@ function Lots() {
     }, [page, status]);
 
 
-    /*
-    ========================================================
-    SEARCH
-    ========================================================
-    */
-
+    
+   // SEARCH
+    
     const handleSearch = (e) => {
 
         e.preventDefault();
@@ -312,11 +294,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    CLEAR SEARCH
-    ========================================================
-    */
+    
+    //CLEAR SEARCH
+   
 
     const clearSearch = () => {
 
@@ -331,12 +311,8 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    OPEN CREATE
-    ========================================================
-    */
-
+   // OPEN CREATE
+    
     const openCreateModal = () => {
 
         setModalMode("create");
@@ -357,11 +333,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    OPEN EDIT
-    ========================================================
-    */
+    
+    //OPEN EDIT
+    
 
     const openEditModal = (lot) => {
 
@@ -396,12 +370,8 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    FORM INPUT
-    ========================================================
-    */
-
+    //FORM INPUT
+    
     const handleInputChange = (e) => {
 
         const {
@@ -418,12 +388,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    CREATE / UPDATE
-    ========================================================
-    */
-
+    
+   // CREATE / UPDATE
+    
     const handleSubmit = async (e) => {
 
         e.preventDefault();
@@ -434,11 +401,9 @@ function Lots() {
             setError("");
 
 
-            /*
-            ==========================
-            CREATE
-            ==========================
-            */
+            
+           // CREATE
+            
 
             if (
                 modalMode === "create"
@@ -473,11 +438,10 @@ function Lots() {
             }
 
 
-            /*
-            ==========================
-            UPDATE
-            ==========================
-            */
+          
+            
+           // UPDATE
+           
 
             else {
 
@@ -519,11 +483,8 @@ function Lots() {
             console.error(err);
 
 
-            /*
-            ==========================
-            CONFLICT
-            ==========================
-            */
+           // CONFLICT
+            
 
             if (
                 err.response?.status === 409
@@ -571,11 +532,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    DELETE
-    ========================================================
-    */
+   
+    //DELETE
+   
 
     const openDeleteModal = (lot) => {
 
@@ -642,11 +601,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    OPEN STATUS MODAL
-    ========================================================
-    */
+   
+   // OPEN STATUS MODAL
+    
 
     const openStatusModal = (lot) => {
 
@@ -659,11 +616,8 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    GET ALLOWED NEXT STATUS
-    ========================================================
-    */
+    //GET ALLOWED NEXT STATUS
+   
 
     const getAllowedStatuses = (currentStatus) => {
 
@@ -694,11 +648,10 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    OPEN STATUS CONFIRMATION
-    ========================================================
-    */
+
+   
+   // OPEN STATUS CONFIRMATION
+   
 
     const handleStatusUpdate = () => {
 
@@ -717,11 +670,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    CONFIRM STATUS UPDATE
-    ========================================================
-    */
+   
+    //CONFIRM STATUS UPDATE
+   
 
     const confirmStatusUpdate = async () => {
 
@@ -765,11 +716,9 @@ function Lots() {
             console.error(err);
 
 
-            /*
-            ==========================
-            CONFLICT
-            ==========================
-            */
+            
+            //CONFLICT
+            
 
             if (
                 err.response?.status === 409
@@ -814,11 +763,9 @@ function Lots() {
     };
 
 
-    /*
-    ========================================================
-    CONFLICT RESOLUTION
-    ========================================================
-    */
+    
+   // CONFLICT RESOLUTION
+   
 
     const closeConflictModal = () => {
 
