@@ -25,9 +25,11 @@ import {
 import Layout from "../components/Layout";
 
 
-const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "http://localhost:5000/api";
+
+// API URL  for production
+
+
+const API_URL = "https://lot-tracker-urg2.onrender.com/api";
 
 
 function LotDetails() {
@@ -71,11 +73,9 @@ function LotDetails() {
     };
 
 
-    /*
-    ========================================================
-    FETCH LOT DETAILS
-    ========================================================
-    */
+   
+   // FETCH LOT DETAILS
+    
 
     const fetchLotDetails = async () => {
 
@@ -128,12 +128,9 @@ function LotDetails() {
     };
 
 
-    /*
-    ========================================================
-    LOAD DATA
-    ========================================================
-    */
-
+    
+    //LOAD DATA
+    
     useEffect(() => {
 
         fetchLotDetails();
@@ -141,11 +138,9 @@ function LotDetails() {
     }, [id]);
 
 
-    /*
-    ========================================================
-    FORMAT DATE
-    ========================================================
-    */
+   
+   // FORMAT DATE
+    
 
     const formatDate = (date) => {
 
@@ -164,11 +159,9 @@ function LotDetails() {
     };
 
 
-    /*
-    ========================================================
-    STATUS CLASS
-    ========================================================
-    */
+    
+    //STATUS CLASS
+    
 
     const getStatusClass = (status) => {
 
@@ -184,11 +177,8 @@ function LotDetails() {
     };
 
 
-    /*
-    ========================================================
-    LOADING
-    ========================================================
-    */
+   // LOADING
+    
 
     if (loading) {
 
@@ -256,11 +246,9 @@ function LotDetails() {
     }
 
 
-    /*
-    ========================================================
-    ERROR
-    ========================================================
-    */
+    
+    //ERROR
+   
 
     if (error || !lot) {
 
@@ -366,30 +354,27 @@ function LotDetails() {
     }
 
 
-    /*
-    ========================================================
-    PAGE
-    ========================================================
-    */
-
+    
+    //PAGE
+    
     return (
 
         <Layout>
 
             <style>{`
 
-                /* =================================================
-                   PAGE
-                ================================================= */
+              
+                  // PAGE
+                
 
                 .details-page {
                     width: 100%;
                 }
 
 
-                /* =================================================
-                   HEADER
-                ================================================= */
+              
+                  // HEADER
+               
 
                 .details-header {
                     display: flex;
