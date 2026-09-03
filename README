@@ -278,7 +278,7 @@ frontend/.env
 Add:
 
 ```env
-https://lot-tracker-frontend.vercel.app
+
 ```
 
 Run:
@@ -290,8 +290,7 @@ npm run dev
 Frontend:
 
 ```text
-http://localhost:5173
-```
+https://lot-tracker-frontend.vercel.app
 
 ---
 
@@ -301,6 +300,11 @@ http://localhost:5173
 
 ```text
 Email:    neema1@gmail.com
+Password: 123456
+Role:     EDITOR
+```
+```text
+Email:    neema3@gmail.com
 Password: 123456
 Role:     EDITOR
 ```
