@@ -255,7 +255,7 @@ npm run dev
 Backend:
 
 ```text
-http://localhost:5000
+https://lot-tracker-urg2.onrender.com
 ```
 
 ---
@@ -278,7 +278,7 @@ frontend/.env
 Add:
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+https://lot-tracker-frontend.vercel.app
 ```
 
 Run:
@@ -447,7 +447,4 @@ The project covers the major assessment requirements including:
 ## Author
 
 **Neema**
-
-Full-Stack Software Engineering Project
-
 Built for the Full-Stack Developer Coding Assessment.
