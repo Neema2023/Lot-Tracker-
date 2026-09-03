@@ -16,17 +16,17 @@ import {
 
 import Layout from "../components/Layout";
 
-const API_URL =
-    import.meta.env.VITE_API_URL ||
-    "http://localhost:5000/api";
+
+// API URL for production
+
+
+const API_URL = "https://lot-tracker-urg2.onrender.com/api";
 
 function AuditTrail() {
 
-    /*
-    ========================================================
-    USER
-    ========================================================
-    */
+    
+    //USER
+    
 
     const user = JSON.parse(
         localStorage.getItem("user") || "{}"
@@ -36,11 +36,9 @@ function AuditTrail() {
         localStorage.getItem("token");
 
 
-    /*
-    ========================================================
-    STATE
-    ========================================================
-    */
+    
+   // STATE
+    
 
     const [lots, setLots] =
         useState([]);
@@ -68,11 +66,8 @@ function AuditTrail() {
         });
 
 
-    /*
-    ========================================================
-    SELECTED LOT / HISTORY
-    ========================================================
-    */
+    //SELECTED LOT / HISTORY
+    
 
     const [selectedLot, setSelectedLot] =
         useState(null);
@@ -84,11 +79,8 @@ function AuditTrail() {
         useState(false);
 
 
-    /*
-    ========================================================
-    AXIOS CONFIG
-    ========================================================
-    */
+   // AXIOS CONFIG
+   
 
     const getConfig = () => {
 
@@ -102,11 +94,9 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    FETCH LOTS
-    ========================================================
-    */
+   
+    //FETCH LOTS
+   
 
     const fetchLots = async (
         requestedPage = page,
@@ -190,12 +180,9 @@ function AuditTrail() {
     }, [page]);
 
 
-    /*
-    ========================================================
-    SEARCH
-    ========================================================
-    */
-
+    
+    //SEARCH
+    
     const handleSearch = (e) => {
 
         e.preventDefault();
@@ -207,12 +194,9 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    CLEAR SEARCH
-    ========================================================
-    */
-
+    
+    //CLEAR SEARCH
+    
     const clearSearch = () => {
 
         setSearch("");
@@ -224,22 +208,17 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    VIEW AUDIT HISTORY
-    ========================================================
-    */
+   
+   // VIEW AUDIT HISTORY
+   
 
     const viewAudit = async (lot) => {
 
         try {
 
-            /*
-            -----------------------------------------------
-            Open modal immediately
-            -----------------------------------------------
-            */
-
+           
+           // Open modal immediately
+           
             setSelectedLot(lot);
 
             setHistory([]);
@@ -249,11 +228,9 @@ function AuditTrail() {
             setError("");
 
 
-            /*
-            -----------------------------------------------
-            API REQUEST
-            -----------------------------------------------
-            */
+            
+            //API REQUEST
+            
 
             const url =
                 `${API_URL}/lots/${lot.id}/track`;
@@ -290,9 +267,7 @@ function AuditTrail() {
                 history: [...]
             }
 
-            -----------------------------------------------
-            */
-
+            
 
             const responseLot =
                 response.data?.lot;
@@ -301,11 +276,9 @@ function AuditTrail() {
                 response.data?.history;
 
 
-            /*
-            -----------------------------------------------
-            Validate response
-            -----------------------------------------------
-            */
+           
+            //Validate response
+          
 
             if (
                 !response.data ||
@@ -319,11 +292,8 @@ function AuditTrail() {
             }
 
 
-            /*
-            -----------------------------------------------
-            Use backend lot data
-            -----------------------------------------------
-            */
+           // Use backend lot data
+            
 
             if (responseLot) {
 
@@ -371,12 +341,9 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    CLOSE HISTORY
-    ========================================================
-    */
-
+  
+    //CLOSE HISTORY
+    
     const closeHistory = () => {
 
         setSelectedLot(null);
@@ -388,12 +355,8 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    FORMAT DATE
-    ========================================================
-    */
-
+    //FORMAT DATE
+   
     const formatDate = (date) => {
 
         if (!date) {
@@ -422,11 +385,9 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    STATUS CLASS
-    ========================================================
-    */
+    
+    //STATUS CLASS
+   
 
     const getStatusClass = (status) => {
 
@@ -442,11 +403,9 @@ function AuditTrail() {
     };
 
 
-    /*
-    ========================================================
-    PAGE
-    ========================================================
-    */
+    
+    //PAGE
+   
 
     return (
 
